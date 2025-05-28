@@ -79,3 +79,31 @@ To ensure reproducible and consistent deployments, this repository pins all infr
 
 Provider versions are locked in `versions.tf` and `.terraform.lock.hcl`.  
 **Always run `terraform init` after cloning to ensure correct provider versions.**
+
+## ArgoCD Usage
+
+### Prerequisites
+- Ensure your `kubectl` is configured to point to your target Kubernetes cluster (e.g., via `export KUBECONFIG=kubeconfig.yaml` as described above).
+
+### Steps
+1. Run the ArgoCD setup script:
+   ```bash
+   ./argocd/setup-argocd.sh
+   ```
+   This script will:
+   - Create the `argocd` namespace (if not already present)
+   - Install ArgoCD
+   - Wait for the ArgoCD server to be ready
+   - Print the ArgoCD admin credentials and the login link
+   - Start port-forwarding ArgoCD to your localhost
+
+2. Open the printed link in your browser (e.g., https://localhost:4444), and log in using the provided credentials.
+
+3. Apply the ArgoCD application manifest:
+   ```bash
+   kubectl apply -f argocd/nginx-app.yml
+   ```
+
+4. You should now see the NGINX app created and managed in the ArgoCD UI.
+
+![ArgoCD NGINX App Screenshot](./assets/argocd.png)
