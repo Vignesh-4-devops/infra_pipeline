@@ -107,3 +107,19 @@ Provider versions are locked in `versions.tf` and `.terraform.lock.hcl`.
 4. You should now see the NGINX app created and managed in the ArgoCD UI.
 
 ![ArgoCD NGINX App Screenshot](./assets/argocd.png)
+
+## Access NGINX Application
+
+If everything goes well, you can access the NGINX welcome page on your node's IP at port 32443:
+
+http://<NodeIP>:32443
+
+![NGINX Welcome Screenshot](./assets/nginx_app.png)
+
+> **Note:** If your node is not publicly accessible, you can use port forwarding to access the NGINX service locally:
+>
+> ```bash
+> kubectl port-forward svc/myservice 8080:80
+> ```
+>
+> Then open [http://localhost:8080](http://localhost:8080) in your browser.
